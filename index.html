@@ -7,68 +7,245 @@
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-  <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(function(reg){console.log('SW enregistré')})
-        .catch(function(err){console.log('Erreur SW:', err)});
-    });
-  }
-  </script>
+  <meta name="theme-color" content="#007E3A">
   <style>
-    :root { --vert:#007E3A; --card:#fff; --text:#222; --bg:#faf7f1 }
-    @media (prefers-color-scheme: dark){ :root{ --card:#16181d; --text:#eaeefb; --bg:#0f1115 } }
-    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:Inter, Segoe UI, Arial, sans-serif}
-    header{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border-bottom:1px solid #0001}
-    .wrap{max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:10px; font-weight:800}
-    .layout{max-width:1100px; margin:0 auto; padding:18px}
-    .card{background:var(--card); border-radius:12px; box-shadow:0 6px 18px #0001; padding:16px; margin-bottom:12px}
-    .tabs{display:flex; gap:6px; flex-wrap:wrap; margin:16px 0}
-    .tab{padding:8px 12px; border:1px solid #ddd; border-radius:8px; background:#f6f6f6; cursor:pointer}
-    .tab.active{background:var(--vert); color:#fff; border-color:var(--vert)}
+    :root{--vert:#007E3A;--card:#fff;--text:#222;--muted:#5b6470;--bg:#faf7f1;--border:#e5e7eb}
+    @media (prefers-color-scheme: dark){:root{--card:#16181d;--text:#eaeefb;--muted:#96a0b4;--bg:#0f1115;--border:#242938}}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter, Segoe UI, Arial, system-ui, -apple-system, sans-serif}
+    a{color:var(--vert)}
+    header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-bottom:1px solid #0001}
+    @media (prefers-color-scheme: dark){header{background:rgba(15,17,21,.6);border-color:#fff1}}
+    .wrap{max-width:1100px;margin:0 auto;padding:14px 18px;display:flex;align-items:center;gap:10px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .brand .logo{width:28px;height:28px;border-radius:8px;background:var(--vert)}
+    .grow{flex:1}
+    .btn{appearance:none;border:1px solid var(--border);background:var(--card);padding:8px 12px;border-radius:10px;cursor:pointer}
+    .btn.primary{background:var(--vert);color:#fff;border-color:var(--vert)}
+    .layout{max-width:1100px;margin:0 auto;padding:18px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 10px 24px #0000000f;padding:16px;margin-bottom:14px}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:900px){.grid{grid-template-columns:2fr 1fr}}
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+    .tab{padding:8px 12px;border:1px solid var(--border);border-radius:10px;background:#f6f6f6;cursor:pointer}
+    @media (prefers-color-scheme: dark){.tab{background:#1d212a}}
+    .tab.active{background:var(--vert);color:#fff;border-color:var(--vert)}
     .tabpanels>section{display:none}
     .tabpanels>section.active{display:block}
-    ul.clean{list-style:none; padding-left:0}
+    ul.clean{list-style:none;padding-left:0}
     ul.clean li{padding:6px 0}
-    .tick{color:var(--vert); font-weight:700}
+    .tick{color:var(--vert);font-weight:700}
+    .row{display:flex;gap:10px;align-items:center}
+    .row>input,.row>select{flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:transparent;color:inherit}
+    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    @media(min-width:700px){.kpis{grid-template-columns:repeat(4,1fr)}}
+    .kpi{padding:12px;border:1px dashed var(--border);border-radius:12px;text-align:center}
+    .muted{color:var(--muted);font-size:12px}
+    .price{font-weight:800;font-size:22px}
+    .flex{display:flex;gap:10px;align-items:center}
+    .right{margin-left:auto}
+    details{border:1px solid var(--border);border-radius:12px;padding:10px}
+    details>summary{cursor:pointer;font-weight:700}
+    .checklist label{display:flex;gap:10px;align-items:flex-start;padding:8px 6px}
+    .checklist input[type="checkbox"]{margin-top:3px}
+    .stickybar{position:sticky;bottom:0;z-index:15;background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border-top:1px solid var(--border)}
+    @media (prefers-color-scheme: dark){.stickybar{background:rgba(15,17,21,.7)}}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}
   </style>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./service-worker.js')
+          .then(function(reg){console.log('SW enregistré')})
+          .catch(function(err){console.log('Erreur SW:', err)});
+      });
+    }
+  </script>
 </head>
 <body>
-<header><div class="wrap">Guide Madagascar interactif<button id="installBtn" style="margin-left:auto;border:2px solid var(--vert);background:transparent;color:var(--vert);border-radius:8px;padding:6px 10px">Installer</button></div></header>
-<main class="layout">
-<nav class="tabs" role="tablist">
-<button class="tab active" data-tab="intro">Intro</button>
-<button class="tab" data-tab="itin">Itinéraires</button>
-<button class="tab" data-tab="budget">Budget</button>
-<button class="tab" data-tab="transport">Transports</button>
-<button class="tab" data-tab="secu">Sécurité</button>
-<button class="tab" data-tab="sante">Santé</button>
-<button class="tab" data-tab="heberg">Hébergements</button>
-<button class="tab" data-tab="voir">À voir</button>
-<button class="tab" data-tab="check">Checklist</button>
-<button class="tab" data-tab="offline">Hors‑ligne</button>
-</nav>
-<div class="tabpanels">
-<section id="intro" class="card active"><h2>Bienvenue</h2><p>Guide interactif complet de Madagascar, utilisable hors‑ligne.</p></section>
-<section id="itin" class="card"><h2>Itinéraires</h2><ul><li>RN7 10–12j: Tana→Antsirabe→Ranomafana→Isalo→Tuléar</li><li>Ouest: Morondava, Baobabs, Tsingy (4x4)</li><li>Nord: Diego, Ankarana, Nosy Be</li></ul></section>
-<section id="budget" class="card"><h2>Budget</h2><ul class="clean"><li><span class="tick">✓</span> 25–45€/j (éco)</li><li><span class="tick">✓</span> 45–90€/j (confort)</li><li><span class="tick">✓</span> 120€+/j (premium)</li></ul></section>
-<section id="transport" class="card"><h2>Transports</h2><ul><li>Taxi‑brousse économique mais lent</li><li>4x4 utile sur pistes</li><li>Vols internes: météo et bagages</li></ul></section>
-<section id="secu" class="card"><h2>Sécurité</h2><ul><li>Éviter la nuit hors grandes villes</li><li>Objets de valeur discrets</li><li>Guides officiels en trek/parc</li></ul></section>
-<section id="sante" class="card"><h2>Santé</h2><ul><li>Vaccins usuels, antipaludéens selon zones</li><li>Eau traitée/embouteillée</li><li>Trousse: répulsif, moustiquaire, soins</li></ul></section>
-<section id="heberg" class="card"><h2>Hébergements</h2><ul><li>Auberges et hôtels 2–3★</li><li>Éco‑lodges près des parcs</li><li>Bungalows sur la côte</li></ul></section>
-<section id="voir" class="card"><h2>À voir</h2><ul class="clean"><li><span class="tick">✓</span> Allée des Baobabs</li><li><span class="tick">✓</span> Isalo</li><li><span class="tick">✓</span> Tsingy</li><li><span class="tick">✓</span> Andasibe</li></ul></section>
-<section id="check" class="card"><h2>Checklist</h2><ul class="clean"><li><label><input type="checkbox"> Passeport (6 mois)</label></li><li><label><input type="checkbox"> Visa/assurance</label></li><li><label><input type="checkbox"> Répulsif/moustiquaire</label></li><li><label><input type="checkbox"> Permis international</label></li></ul></section>
-<section id="offline" class="card"><h2>Hors‑ligne</h2><p>La PWA se met en cache au premier chargement pour une consultation sans réseau.</p></section>
-</div>
-</main>
-<script>
-const tabs=[...document.querySelectorAll('.tab')];
-const panels=[...document.querySelectorAll('.tabpanels > section')];
-tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(b=>b.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab)?.classList.add('active');}));
-let deferredPrompt;const btn=document.getElementById('installBtn');
-window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;btn.style.display='inline-block'});
-btn?.addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null});
-</script>
-</body>
-</html>
+  <header>
+    <div class="wrap">
+      <div class="brand"><div class="logo"></div> Guide Madagascar</div>
+      <div class="grow"></div>
+      <button id="btnShare" class="btn" title="Partager">Partager</button>
+      <button id="btnInstall" class="btn primary" title="Installer">Installer</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <div class="kpis">
+        <div class="kpi">
+          <div class="muted">Devise</div>
+          <div class="price"><span id="ariary">MGA</span></div>
+          <div class="muted">Ariary malgache</div>
+        </div>
+        <div class="kpi">
+          <div class="muted">1 EUR ≈</div>
+          <div class="price"><span id="eurRate">-</span> MGA</div>
+          <div class="muted">Taux indicatif</div>
+        </div>
+        <div class="kpi">
+          <div class="muted">Carte SIM</div>
+          <div class="price">10 000–20 000</div>
+          <div class="muted">MGA selon opérateur</div>
+        </div>
+        <div class="kpi">
+          <div class="muted">Budget repas</div>
+          <div class="price">8 000–25 000</div>
+          <div class="muted">MGA par personne</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="tabs" role="tablist" aria-label="Sections du guide">
+        <button class="tab active" role="tab" aria-selected="true" aria-controls="t0" id="tab0">Checklist</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t1" id="tab1">Transports</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t2" id="tab2">Prix</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t3" id="tab3">Santé</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t4" id="tab4">Sécurité</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t5" id="tab5">Hébergements</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t6" id="tab6">Astuces</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="t7" id="tab7">Change</button>
+      </div>
+
+      <div class="tabpanels">
+        <section id="t0" class="active" role="tabpanel" aria-labelledby="tab0">
+          <h2>Checklist avant départ</h2>
+          <div class="checklist">
+            <label><input type="checkbox"> Passeport valable 6+ mois</label>
+            <label><input type="checkbox"> Visa e-visa ou à l'arrivée</label>
+            <label><input type="checkbox"> Assurance voyage incluant rapatriement</label>
+            <label><input type="checkbox"> Vaccins à jour (hépatite A/B, fièvre typhoïde, DTCP)</label>
+            <label><input type="checkbox"> Traitement antipaludique selon zones</label>
+            <label><input type="checkbox"> Répulsif moustiques (DEET/icaridine) + moustiquaire</label>
+            <label><input type="checkbox"> Photocopies docs + version numérique</label>
+            <label><input type="checkbox"> Cash en EUR + CB sans frais</label>
+            <label><input type="checkbox"> Carte SIM locale (Telma/Airtel/Orange)</label>
+          </div>
+        </section>
+
+        <section id="t1" role="tabpanel" aria-labelledby="tab1">
+          <h2>Transports</h2>
+          <ul class="clean">
+            <li><span class="tick">•</span> Taxi-ville: négocier avant de monter (8 000–20 000 MGA en ville)</li>
+            <li><span class="tick">•</span> Taxi-brousse: principal moyen interville, départs tôt, billets la veille</li>
+            <li><span class="tick">•</span> Location 4x4 avec chauffeur pour pistes (50–80 €/jour hors carburant)</li>
+            <li><span class="tick">•</span> Vols intérieurs: prévoir retards, flexibilité conseillée</li>
+          </ul>
+        </section>
+
+        <section id="t2" role="tabpanel" aria-labelledby="tab2">
+          <h2>Prix repères</h2>
+          <ul class="clean">
+            <li>Repas local: 8 000–15 000 MGA</li>
+            <li>Restaurant touristique: 20 000–45 000 MGA</li>
+            <li>Bouteille d'eau 1.5L: 3 000–5 000 MGA</li>
+            <li>Chambre budget: 40 000–90 000 MGA</li>
+            <li>Essence: indicatif affiché en station</li>
+          </ul>
+        </section>
+
+        <section id="t3" role="tabpanel" aria-labelledby="tab3">
+          <h2>Santé</h2>
+          <ul class="clean">
+            <li><span class="tick">•</span> Eau en bouteille uniquement, fruits pelés, aliments bien cuits</li>
+            <li><span class="tick">•</span> Anti-moustique, vêtements longs le soir</li>
+            <li><span class="tick">•</span> Trousse: antidiarrhéiques, paracétamol, antiseptique, compresses</li>
+            <li><span class="tick">•</span> Hôpitaux privés recommandés en ville</li>
+          </ul>
+        </section>
+
+        <section id="t4" role="tabpanel" aria-labelledby="tab4">
+          <h2>Sécurité</h2>
+          <ul class="clean">
+            <li>Éviter déplacements de nuit hors villes</li>
+            <li>Discret avec objets de valeur, utiliser taxis officiels</li>
+            <li>Retirer de l'argent en journée dans lieux fréquentés</li>
+          </ul>
+        </section>
+
+        <section id="t5" role="tabpanel" aria-labelledby="tab5">
+          <h2>Hébergements</h2>
+          <p>Choisir selon budget: guesthouses, hôtels 2-3*, lodges. Vérifier avis récents et eau chaude.</p>
+        </section>
+
+        <section id="t6" role="tabpanel" aria-labelledby="tab6">
+          <h2>Astuces pratiques</h2>
+          <ul class="clean">
+            <li>Langue: malgache et français courants; quelques mots malgaches appréciés</li>
+            <li>Électricité: prises type C/E, coupures possibles, prévoir powerbank</li>
+            <li>Internet: Telma/Airtel souvent meilleurs en 4G selon zones</li>
+            <li>Négociation courante sur marchés et taxis</li>
+          </ul>
+        </section>
+
+        <section id="t7" role="tabpanel" aria-labelledby="tab7">
+          <h2>Convertisseur de devises</h2>
+          <div class="row">
+            <input id="eurInput" type="number" min="0" step="0.01" placeholder="Montant en EUR">
+            <div class="right muted">Taux 1 EUR → <span id="rateLabel">-</span> MGA</div>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <input id="mgaOutput" class="mono" type="text" readonly placeholder="Résultat en MGA">
+            <button class="btn" id="btnCopy">Copier</button>
+          </div>
+          <details style="margin-top:8px">
+            <summary>Sources & note</summary>
+            <p class="muted">Taux récupéré automatiquement (indicatif). Les bureaux de change et banques appliquent leurs propres taux et frais.</p>
+          </details>
+        </section>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <h3>Itinéraires populaires</h3>
+        <ul class="clean">
+          <li>RN7: Antananarivo → Antsirabe → Ranomafana → Isalo → Ifaty</li>
+          <li>Nord: Diego Suarez, Mer d'Émeraude, Nosy Be</li>
+          <li>Est: Canal des Pangalanes, Sainte-Marie</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Notes rapides</h3>
+        <ul class="clean">
+          <li>Pourboires appréciés mais non obligatoires</li>
+          <li>Respect des zones protégées et de la faune</li>
+          <li>Climat variable: saison des pluies décembre à mars</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="stickybar">
+    <div class="wrap" style="justify-content:space-between">
+      <div class="muted">PWA hors-ligne disponible après première visite.</div>
+      <div class="flex">
+        <span class="muted">Mode:</span>
+        <button class="btn" id="toggleTheme">Sombre/Clair</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Tabs
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.tabpanels>section');
+    tabs.forEach(t=>t.addEventListener('click',()=>{
+      tabs.forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected','false')});
+      panels.forEach(p=>p.classList.remove('active'));
+      t.classList.add('active');
+      t.setAttribute('aria-selected','true');
+      const id = t.getAttribute('aria-controls');
+      document.getElementById(id)?.classList.add('active');
+    }));
+
+    // Theme toggle + persist
+    const toggleBtn = document.getElementById('toggleTheme');
+    function applyTheme(mode){
+      document.documentElement.dataset.theme = mode;
+      const dark = mode==='dark';
+      document.documentElement.style.setProperty('--card', dark?'#16181d':'#fff');
+      document.documentElement.style.setProperty('--
