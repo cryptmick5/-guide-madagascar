@@ -2,20 +2,20 @@
   "name": "Guide Complet Madagascar - Prix 2025",
   "short_name": "Guide Mada",
   "description": "Guide des prix et liste indispensables pour Madagascar 2025",
-  "start_url": "./guide-complet-madagascar-PWA.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F5E6D3",
   "theme_color": "#007E3A",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icon-guide-192.png",
+      "src": "./icon-guide-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icon-guide-512.png",
+      "src": "./icon-guide-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
