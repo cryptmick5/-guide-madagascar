@@ -8,228 +8,221 @@
   <meta name="theme-color" content="#007E3A" />
   <link rel="icon" href="./icon-192.png" sizes="192x192" type="image/png" />
   <link rel="icon" href="./icon-512.png" sizes="512x512" type="image/png" />
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+      });
+    }
+  </script>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f5f5;
-    }
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-    }
-    h1 {
-      color: #007E3A;
-      text-align: center;
-      margin-bottom: 30px;
-    }
-    h2 {
-      color: #007E3A;
-      border-bottom: 2px solid #007E3A;
-      padding-bottom: 5px;
-    }
-    h3 {
-      color: #005A2A;
-    }
-    .section {
-      margin-bottom: 30px;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    li {
-      margin-bottom: 10px;
-    }
-    .highlight {
-      background-color: #E8F5E8;
-      padding: 15px;
-      border-left: 4px solid #007E3A;
-      margin: 20px 0;
-    }
-    .important {
-      color: #D32F2F;
-      font-weight: bold;
-    }
-    .tip {
-      background-color: #FFF3E0;
-      padding: 15px;
-      border-left: 4px solid #FF9800;
-      margin: 20px 0;
-    }
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f5f5f5; }
+    .container { max-width: 900px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
+    h1 { color: #007E3A; text-align: center; margin-bottom: 20px; }
+    h2 { color: #007E3A; border-bottom: 2px solid #007E3A; padding-bottom: 6px; margin-top: 28px; }
+    h3 { color: #0a5831; margin-top: 18px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { background:#fafafa; border:1px solid #e6e6e6; border-radius:8px; padding:14px; }
+    ul { margin: 8px 0 0 18px; }
+    .note { background:#eaf7ef; border-left:4px solid #007E3A; padding:10px 12px; border-radius:6px; }
+    .muted { color:#666; font-size: 0.95em; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border:1px solid #e6e6e6; padding:8px 10px; }
+    th { background:#f3f3f3; text-align:left; }
+    .footer { margin-top: 28px; text-align:center; color:#666; font-size: 0.9em; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🌴 Guide Complet de Madagascar 🌴</h1>
-    
-    <div class="section">
-      <h2>🗺️ Informations Générales</h2>
-      <ul>
-        <li><strong>Capitale :</strong> Antananarivo</li>
-        <li><strong>Langue officielle :</strong> Malgache et Français</li>
-        <li><strong>Monnaie :</strong> Ariary malgache (MGA)</li>
-        <li><strong>Population :</strong> Environ 28 millions d'habitants</li>
-        <li><strong>Superficie :</strong> 587 041 km²</li>
-      </ul>
+    <h1>Guide complet Madagascar – Budget, Food, Vêtements, Transports, Conseils</h1>
+
+    <div class="note">
+      Ce guide compile prix moyens, astuces locales, vêtements conseillés, sécurité, et adresses utiles pour Antananarivo, Nosy Be, côte Est/Ouest. Les prix sont indicatifs (Ariary, Ar) et varient selon la saison et le lieu.
     </div>
 
-    <div class="section">
-      <h2>🦎 Faune Endémique</h2>
-      <h3>Lémuriens</h3>
-      <ul>
-        <li>Indri indri (le plus grand lémurien)</li>
-        <li>Maki catta (lémurien à queue annelée)</li>
-        <li>Sifaka de Verreaux</li>
-        <li>Aye-aye (lémurien nocturne aux doigts longs)</li>
-      </ul>
-      
-      <h3>Autres animaux emblématiques</h3>
-      <ul>
-        <li>Fossa (plus grand carnivore de Madagascar)</li>
-        <li>Tortue radiée</li>
-        <li>Gecko satanique à queue de feuille</li>
-        <li>Caméléons (plus de 60 espèces endémiques)</li>
-      </ul>
+    <h2>Repas et restaurants</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Restaurants locaux</h3>
+        <ul>
+          <li>Plat malgache simple (romazava, ravitoto): 10 000–20 000 Ar</li>
+          <li>Menu complet (entrée/plat): 25 000–40 000 Ar</li>
+          <li>Restaurant milieu de gamme: 35 000–70 000 Ar</li>
+          <li>Restaurant touristique: 60 000–120 000 Ar</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Street food</h3>
+        <ul>
+          <li>Brochette/masikita: 1 000–3 000 Ar</li>
+          <li>Mofogasy, mofo baolina, sambos: 200–1 000 Ar</li>
+          <li>Sandwich/banane beignets: 2 000–5 000 Ar</li>
+          <li>Riz + laoka (cantine): 6 000–12 000 Ar</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Boissons</h3>
+        <ul>
+          <li>Eau 1,5 L: 2 000–4 000 Ar</li>
+          <li>THB, Gold, Queens: 5 000–10 000 Ar</li>
+          <li>Sodas/jus: 3 000–7 000 Ar</li>
+          <li>Café/THB pression en bar: 4 000–12 000 Ar</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>🌿 Flore Unique</h2>
-      <ul>
-        <li><strong>Baobabs :</strong> 8 espèces dont 6 endémiques</li>
-        <li><strong>Plantes carnivores :</strong> Nepenthes madagascariensis</li>
-        <li><strong>Orchidées :</strong> Plus de 1000 espèces</li>
-        <li><strong>Pachypodium :</strong> Arbres bouteilles caractéristiques</li>
-        <li><strong>Didierea :</strong> Forêts d'épineux du Sud</li>
-      </ul>
+    <h2>Courses et marchés</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Prix indicatifs</h3>
+        <ul>
+          <li>Riz (1 kg): 3 000–6 000 Ar</li>
+          <li>Œufs (12): 7 000–12 000 Ar</li>
+          <li>Poulet (1 kg): 18 000–30 000 Ar</li>
+          <li>Légumes (panier): 5 000–12 000 Ar</li>
+          <li>Fruits (mangues, bananes, litchis): 1 000–6 000 Ar</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Astuce marchés</h3>
+        <ul>
+          <li>Privilégier le matin; comparer 2–3 étals.</li>
+          <li>Négocier poliment (sourire, Ariary prêt).</li>
+          <li>Éviter bijoux/objets de valeur visibles.</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>🏞️ Lieux Incontournables</h2>
-      
-      <h3>Parcs Nationaux</h3>
-      <ul>
-        <li><strong>Andasibe-Mantadia :</strong> Pour observer les Indris</li>
-        <li><strong>Isalo :</strong> Paysages de grès et canyons</li>
-        <li><strong>Ankarafantsika :</strong> Forêt sèche et lémuriens</li>
-        <li><strong>Masoala :</strong> Forêt tropicale humide</li>
-        <li><strong>Tsingy de Bemaraha :</strong> Formations calcaires uniques</li>
-      </ul>
-      
-      <h3>Sites Naturels</h3>
-      <ul>
-        <li><strong>Allée des Baobabs :</strong> Coucher de soleil mythique</li>
-        <li><strong>Lac Tritriva :</strong> Lac volcanique sacré</li>
-        <li><strong>Montagne d'Ambre :</strong> Forêt tropicale du Nord</li>
-        <li><strong>Cap Sainte-Marie :</strong> Point le plus au Sud</li>
-      </ul>
+    <h2>Transports</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>En ville</h3>
+        <ul>
+          <li>Taxi-ville (Tana): 6 000–15 000 Ar (selon distance/heure)</li>
+          <li>Bus/taxibe: 500–1 200 Ar</li>
+          <li>Tuk-tuk (Nosy Be / côtes): 4 000–12 000 Ar</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Interurbain</h3>
+        <ul>
+          <li>Taxi-brousse Tana–Tamatave: 30 000–60 000 Ar</li>
+          <li>Taxi-brousse Tana–Majunga: 45 000–80 000 Ar</li>
+          <li>Chauffeur/4x4 (journée): 180 000–350 000 Ar + carburant</li>
+          <li>Bateau (archipels): variable, demander localement</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>🏖️ Îles et Côtes</h2>
-      <ul>
-        <li><strong>Nosy Be :</strong> Île aux parfums</li>
-        <li><strong>Sainte-Marie :</strong> Observation des baleines à bosse</li>
-        <li><strong>Nosy Komba :</strong> Île aux lémuriens</li>
-        <li><strong>Morondava :</strong> Côte Ouest et Avenue des Baobabs</li>
-        <li><strong>Fort-Dauphin :</strong> Côte Sud-Est</li>
-      </ul>
+    <h2>Vêtements et équipement</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Vêtements</h3>
+        <ul>
+          <li>T-shirts respirants x4–6, chemise légère anti-UV</li>
+          <li>Pantalon léger + short; legging/randonée</li>
+          <li>Coupe-vent imperméable; polaire légère (altitude/Tana soir)</li>
+          <li>Chapeau/casquette, lunettes de soleil</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Chaussures</h3>
+        <ul>
+          <li>Baskets marche/trek légers</li>
+          <li>Tongs / sandales fermées</li>
+          <li>Chaussures d’eau pour récifs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Accessoires</h3>
+        <ul>
+          <li>Crème solaire, anti-moustique (DEET ou IR3535), trousse pharma</li>
+          <li>Gourde filtrante, pastilles purification</li>
+          <li>Lampe frontale, multiprise, adaptateur</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>🍽️ Cuisine Malgache</h2>
-      
-      <h3>Plats Traditionnels</h3>
-      <ul>
-        <li><strong>Romazava :</strong> Ragoût national aux brèdes</li>
-        <li><strong>Ravitoto :</strong> Feuilles de manioc pilées avec porc</li>
-        <li><strong>Vary amin'anana :</strong> Riz aux légumes verts</li>
-        <li><strong>Koba :</strong> Gâteau de riz à la cacahuète</li>
-      </ul>
-      
-      <h3>Boissons</h3>
-      <ul>
-        <li><strong>Ranonapango :</strong> Eau de riz brûlé</li>
-        <li><strong>Rhum Dzama :</strong> Rhum local</li>
-        <li><strong>Three Horses Beer (THB) :</strong> Bière nationale</li>
-      </ul>
+    <h2>Conseils pratiques</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Santé</h3>
+        <ul>
+          <li>Eau en bouteille uniquement; éviter glaçons non sûrs</li>
+          <li>Antipaludéen selon zone/saison (voir médecin)</li>
+          <li>Vaccins usuels à jour (+ typhoïde, hépatite A selon profil)</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Sécurité</h3>
+        <ul>
+          <li>Éviter déplacements nocturnes seuls; taxi conseillé</li>
+          <li>Objets de valeur discrets; copie docs séparée</li>
+          <li>Négocier courses AVANT de monter</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Argent & SIM</h3>
+        <ul>
+          <li>Retraits: banques BNI/BMOI/BOA; plafonds variables</li>
+          <li>Mobile money (Mvola/Airtel Money) pratique en local</li>
+          <li>SIM Telma/Airtel/Orange: 5 000–15 000 Ar + data</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="section">
-      <h2>💎 Pierres Précieuses</h2>
-      <ul>
-        <li><strong>Saphirs :</strong> Toutes les couleurs sauf rouge</li>
-        <li><strong>Rubis :</strong> Qualité exceptionnelle</li>
-        <li><strong>Émeraudes :</strong> Gisements au Nord</li>
-        <li><strong>Quartz rose :</strong> Très prisé</li>
-        <li><strong>Labradorite :</strong> Pierre aux reflets changeants</li>
-      </ul>
+    <h2>Exemples de budgets journaliers</h2>
+    <table>
+      <thead><tr><th>Profil</th><th>Hébergement</th><th>Repas</th><th>Transport</th><th>Total</th></tr></thead>
+      <tbody>
+        <tr><td>Économique</td><td>40 000 Ar</td><td>25 000 Ar</td><td>10 000 Ar</td><td>75 000 Ar</td></tr>
+        <tr><td>Confort</td><td>100 000 Ar</td><td>45 000 Ar</td><td>25 000 Ar</td><td>170 000 Ar</td></tr>
+        <tr><td>Plus haut</td><td>200 000 Ar</td><td>80 000 Ar</td><td>60 000 Ar</td><td>340 000 Ar</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Check-list</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Documents</h3>
+        <ul>
+          <li>Passeport (6 mois restants), e-visa/visa</li>
+          <li>Assurance voyage, copies papier/numériques</li>
+          <li>Permis international si conduite</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Tech</h3>
+        <ul>
+          <li>Power bank, câbles, adaptateur, eSIM/SIM</li>
+          <li>Téléchargements offline: Maps.me/Google Maps, traducteur</li>
+          <li>Drive/notion pour scans des docs</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Divers</h3>
+        <ul>
+          <li>Sac étanche, ziplocks, mini-couture</li>
+          <li>Savon de Marseille, gel hydroalcoolique</li>
+          <li>Petit kit couture/réparation</li>
+        </ul>
+      </div>
     </div>
 
-    <div class="highlight">
-      <h2>📅 Meilleure Période pour Visiter</h2>
-      <ul>
-        <li><strong>Saison sèche :</strong> Mai à Octobre (recommandée)</li>
-        <li><strong>Saison des pluies :</strong> Novembre à Avril</li>
-        <li><strong>Cyclones :</strong> Janvier à Mars (côte Est particulièrement)</li>
-      </ul>
-    </div>
+    <p class="muted">Dernière mise à jour: restauration du guide détaillé avec PWA finale.</p>
 
-    <div class="tip">
-      <h2>💡 Conseils Pratiques</h2>
-      <ul>
-        <li>Prévoir vaccinations (fièvre jaune si transit par pays à risque)</li>
-        <li>Protection anti-paludisme selon les zones</li>
-        <li>Visa touristique obligatoire</li>
-        <li>Respecter les "fady" (tabous locaux)</li>
-        <li>Négocier les prix sur les marchés</li>
-        <li>Prévoir espèces (euros acceptés)</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>🚗 Transport</h2>
-      <ul>
-        <li><strong>Taxi-brousse :</strong> Transport local coloré</li>
-        <li><strong>Location de voiture :</strong> Avec chauffeur recommandé</li>
-        <li><strong>Vols intérieurs :</strong> Air Madagascar pour longues distances</li>
-        <li><strong>Pousse-pousse :</strong> Dans les villes (Antsirabe)</li>
-      </ul>
-    </div>
-
-    <div class="section">
-      <h2>🏛️ Culture et Traditions</h2>
-      <ul>
-        <li><strong>Famadihana :</strong> Cérémonie de retournement des morts</li>
-        <li><strong>Hira gasy :</strong> Spectacle traditionnel de chant et danse</li>
-        <li><strong>Sombily :</strong> Flûte traditionnelle</li>
-        <li><strong>Artisanat :</strong> Sculptures sur bois, tissages, vannerie</li>
-      </ul>
-    </div>
-
-    <div class="important">
-      <p><strong>⚠️ Important :</strong> Madagascar est l'un des hotspots de biodiversité les plus menacés au monde. Respectons cet écosystème unique !</p>
-    </div>
+    <div class="footer">Bonne route et veloma!</div>
   </div>
 
   <script>
-    // Service Worker pour PWA
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-          .then((registration) => {
-            console.log('SW registered: ', registration);
-          })
-          .catch((registrationError) => {
-            console.log('SW registration failed: ', registrationError);
-          });
+    // Petites interactions utiles (ancrages, etc.)
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
       });
-    }
+    });
   </script>
 </body>
 </html>
