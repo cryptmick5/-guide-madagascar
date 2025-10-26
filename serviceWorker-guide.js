@@ -1,9 +1,9 @@
 const CACHE_NAME = 'guide-madagascar-v1';
 const urlsToCache = [
+  './index.html',
   './guide-complet-madagascar-PWA.html',
   './manifest-guide.json'
 ];
-
 // Installation du Service Worker
 self.addEventListener('install', event => {
   console.log('🚀 Installation du Service Worker Guide...');
@@ -15,7 +15,6 @@ self.addEventListener('install', event => {
       })
   );
 });
-
 // Activation
 self.addEventListener('activate', event => {
   console.log('✅ Service Worker Guide activé');
@@ -32,7 +31,6 @@ self.addEventListener('activate', event => {
     })
   );
 });
-
 // Stratégie Network First (essaie internet d'abord, sinon cache)
 self.addEventListener('fetch', event => {
   event.respondWith(
