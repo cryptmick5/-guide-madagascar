@@ -1,43 +1,74 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guide Complet Madagascar PWA</title>
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#007E3A">
-    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-    <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
-    <style>
-:root {
- --rouge-mada: #FC3D32; --vert-mada: #007E3A; --blanc-mada: #FFFFFF; --beige-mada: #F5E6D3; --terre-mada: #8B4513; --ocean-mada: #0077BE; --sable: #F4D7B0; --baobab: #A0522D; --vanille: #F3E5AB; --ravinala: #228B22; }
-body {
- font-family: 'Segoe UI',Tahoma,Geneva,Verdana,sans-serif; background: linear-gradient(135deg,var(--sable) 0%, var(--beige-mada) 50%, var(--vanille) 100%); background-attachment: fixed; min-height: 100vh; padding: 20px; transition: all 0.3s; }
-body.dark-mode {
- background: linear-gradient(135deg, #2C1810 0%, #1a1a1a 50%, #0d0d0d 100%);}
-#dark-mode-toggle {position:fixed;top:16px;left:16px;z-index:10100;border-radius:16px;background:#f5e6d3;border:none;padding:8px 18px;font-weight:bold;font-size:16px;box-shadow:0 2px 10px #0002;cursor:pointer;}
-.connection-status {
- position: fixed; top: 10px; right: 10px; padding: 8px 16px; border-radius: 20px; font-size: 0.85em; font-weight: bold; z-index:10000; display:flex; align-items:center; gap:8px; backdrop-filter:blur(10px); box-shadow:0 4px 12px #0002; transition:all 0.3s; }
-.connection-status.online {background:rgba(34,139,34,0.95);color:white;}
-.connection-status.offline {background:rgba(255,140,0,0.95);color:white;}
-.connection-status .pulse {width:10px;height:10px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
-@keyframes pulse {0%,100%{opacity:1;}50%{opacity:0.5;}}
-    </style>
-    <script>
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./service-worker.js')
-      .then(function(reg){console.log('SW enregistré')})
-      .catch(function(err){console.log('Erreur SW:', err)});
-  });
-}
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Complet Madagascar PWA</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="icon-512.png">
+  <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(function(reg){console.log('SW enregistré')})
+        .catch(function(err){console.log('Erreur SW:', err)});
+    });
+  }
+  </script>
+  <style>
+    :root { --vert:#007E3A; --card:#fff; --text:#222; --bg:#faf7f1 }
+    @media (prefers-color-scheme: dark){ :root{ --card:#16181d; --text:#eaeefb; --bg:#0f1115 } }
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--text); font-family:Inter, Segoe UI, Arial, sans-serif}
+    header{position:sticky; top:0; z-index:10; background:rgba(255,255,255,.7); backdrop-filter:blur(10px); border-bottom:1px solid #0001}
+    .wrap{max-width:1100px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; gap:10px; font-weight:800}
+    .layout{max-width:1100px; margin:0 auto; padding:18px}
+    .card{background:var(--card); border-radius:12px; box-shadow:0 6px 18px #0001; padding:16px; margin-bottom:12px}
+    .tabs{display:flex; gap:6px; flex-wrap:wrap; margin:16px 0}
+    .tab{padding:8px 12px; border:1px solid #ddd; border-radius:8px; background:#f6f6f6; cursor:pointer}
+    .tab.active{background:var(--vert); color:#fff; border-color:var(--vert)}
+    .tabpanels>section{display:none}
+    .tabpanels>section.active{display:block}
+    ul.clean{list-style:none; padding-left:0}
+    ul.clean li{padding:6px 0}
+    .tick{color:var(--vert); font-weight:700}
+  </style>
 </head>
 <body>
-<button id='dark-mode-toggle' aria-label='Mode nuit/jour'>🌞/🌙</button>
-<div id='connection-status' class='connection-status online'></div>
-<div class='guide-content'>
-<!-- Rest of content -->
+<header><div class="wrap">Guide Madagascar interactif<button id="installBtn" style="margin-left:auto;border:2px solid var(--vert);background:transparent;color:var(--vert);border-radius:8px;padding:6px 10px">Installer</button></div></header>
+<main class="layout">
+<nav class="tabs" role="tablist">
+<button class="tab active" data-tab="intro">Intro</button>
+<button class="tab" data-tab="itin">Itinéraires</button>
+<button class="tab" data-tab="budget">Budget</button>
+<button class="tab" data-tab="transport">Transports</button>
+<button class="tab" data-tab="secu">Sécurité</button>
+<button class="tab" data-tab="sante">Santé</button>
+<button class="tab" data-tab="heberg">Hébergements</button>
+<button class="tab" data-tab="voir">À voir</button>
+<button class="tab" data-tab="check">Checklist</button>
+<button class="tab" data-tab="offline">Hors‑ligne</button>
+</nav>
+<div class="tabpanels">
+<section id="intro" class="card active"><h2>Bienvenue</h2><p>Guide interactif complet de Madagascar, utilisable hors‑ligne.</p></section>
+<section id="itin" class="card"><h2>Itinéraires</h2><ul><li>RN7 10–12j: Tana→Antsirabe→Ranomafana→Isalo→Tuléar</li><li>Ouest: Morondava, Baobabs, Tsingy (4x4)</li><li>Nord: Diego, Ankarana, Nosy Be</li></ul></section>
+<section id="budget" class="card"><h2>Budget</h2><ul class="clean"><li><span class="tick">✓</span> 25–45€/j (éco)</li><li><span class="tick">✓</span> 45–90€/j (confort)</li><li><span class="tick">✓</span> 120€+/j (premium)</li></ul></section>
+<section id="transport" class="card"><h2>Transports</h2><ul><li>Taxi‑brousse économique mais lent</li><li>4x4 utile sur pistes</li><li>Vols internes: météo et bagages</li></ul></section>
+<section id="secu" class="card"><h2>Sécurité</h2><ul><li>Éviter la nuit hors grandes villes</li><li>Objets de valeur discrets</li><li>Guides officiels en trek/parc</li></ul></section>
+<section id="sante" class="card"><h2>Santé</h2><ul><li>Vaccins usuels, antipaludéens selon zones</li><li>Eau traitée/embouteillée</li><li>Trousse: répulsif, moustiquaire, soins</li></ul></section>
+<section id="heberg" class="card"><h2>Hébergements</h2><ul><li>Auberges et hôtels 2–3★</li><li>Éco‑lodges près des parcs</li><li>Bungalows sur la côte</li></ul></section>
+<section id="voir" class="card"><h2>À voir</h2><ul class="clean"><li><span class="tick">✓</span> Allée des Baobabs</li><li><span class="tick">✓</span> Isalo</li><li><span class="tick">✓</span> Tsingy</li><li><span class="tick">✓</span> Andasibe</li></ul></section>
+<section id="check" class="card"><h2>Checklist</h2><ul class="clean"><li><label><input type="checkbox"> Passeport (6 mois)</label></li><li><label><input type="checkbox"> Visa/assurance</label></li><li><label><input type="checkbox"> Répulsif/moustiquaire</label></li><li><label><input type="checkbox"> Permis international</label></li></ul></section>
+<section id="offline" class="card"><h2>Hors‑ligne</h2><p>La PWA se met en cache au premier chargement pour une consultation sans réseau.</p></section>
 </div>
+</main>
+<script>
+const tabs=[...document.querySelectorAll('.tab')];
+const panels=[...document.querySelectorAll('.tabpanels > section')];
+tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(b=>b.classList.remove('active'));panels.forEach(p=>p.classList.remove('active'));t.classList.add('active');document.getElementById(t.dataset.tab)?.classList.add('active');}));
+let deferredPrompt;const btn=document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;btn.style.display='inline-block'});
+btn?.addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null});
+</script>
 </body>
 </html>
